@@ -1,32 +1,33 @@
 import http.requests.*;
 
-class HTTP {
+static class HTTP {
 
 
-  StringList getGames(String query) {
-    GetRequest api = new GetRequest("http://store.steampowered.com/search/?term=cs");
+  static StringList getGames(String query) {
+    GetRequest api = new GetRequest("http://store.steampowered.com/search/?term=" + query);
     api.send();
 
     final String data = api.getContent();
     final String lookfor = "class=\"title\">";
-
-    for (int i = 0; i < data.length() - lookfor.length(); i++) {
-      for (int j = 0; j < lookfor.length(); j++) {
-        if (data.charAt(i + j) != lookfor.charAt(j)) {
+    searchFor(data, lookfor, '<');
+    
+    return null;
+  }
+  
+  static void searchFor(String searchText, String prefix, char suffix){
+    for (int i = 0; i < searchText.length() - prefix.length(); i++) {
+      for (int j = 0; j < prefix.length(); j++) {
+        if (searchText.charAt(i + j) != prefix.charAt(j)) {
           break;
-        } else if (j == lookfor.length() - 1) {
-          for (int k = 0; k < data.length() - i; k++) {
-            if (data.charAt(i + lookfor.length() + k) == '<') {
-              println(data.substring(i + lookfor.length(), i + lookfor.length() + k));
+        } else if (j == prefix.length() - 1) {
+          for (int k = 0; k < searchText.length() - i; k++) {
+            if (searchText.charAt(i + prefix.length() + k) == suffix) {
+              println(searchText.substring(i + prefix.length(), i + prefix.length() + k));
               break;
             }
           }
-
-
-          println(i);
         }
       }
     }
-    return null;
   }
 }
