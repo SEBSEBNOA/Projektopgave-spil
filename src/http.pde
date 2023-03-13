@@ -1,8 +1,6 @@
 import http.requests.*;
 
 static class HTTP {
-
-
   static StringList getGames(String query) {
     GetRequest api = new GetRequest("http://store.steampowered.com/search/?term=" + query);
     api.send();
@@ -32,7 +30,6 @@ static class HTTP {
         }
       }
     }
-    
     return games;
   }
 }

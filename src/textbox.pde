@@ -20,7 +20,7 @@ class TextBox{
     
     // Draw text
     fill(255);
-    text(this.text, this.x + this.boxWidth / 2, this.y + this.boxHeight / 2 + 15);
+    text(this.text, this.x + this.boxWidth / 2, this.y + this.boxHeight / 2);
     
     if(!keyPressed){
       this.keyReleased = true;
