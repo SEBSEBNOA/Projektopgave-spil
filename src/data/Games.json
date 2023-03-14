@@ -1,0 +1,70 @@
+[
+"name": "Counter-Strike: Global Offensive",
+"publisher": "Valve",
+"price": 0,
+"rating": 9,
+"tags": "FPS","Shooter","Multiplayer","Competitive","Action"
+]
+[
+"name": "Team Fortress 2",
+"publisher": "Valve",
+"price": 0,
+"rating": 9,
+"tags": "Free to Play","Hero Shooter","Multiplayer","FPS","Shooter"
+]
+[
+"name": "Papers, Please",
+"publisher": "3909",
+"price": 8.99,
+"rating": 10,
+"tags": "Indie","Political","Simulation","Singleplayer","Puzzle"
+]
+[
+"name": "Escape Simulator",
+"publisher": "Pine Studio",
+"price": 14.99,
+"rating": 10,
+"tags": "Puzzle","Co-op","Multiplayer","Escape Room","Indie"
+]
+[
+"name": "It Takes Two",
+"publisher": "Electronic Arts",
+"price": 39.99,
+"rating": 9,
+"tags": "Co-op","Multiplayer","Spilt Screen","Local Co-op","Puzzle"
+]
+[
+"name": "",
+"publisher": "",
+"price": ,
+"rating": ,
+"tags": "","","","",""
+]
+[
+"name": "",
+"publisher": "",
+"price": ,
+"rating": ,
+"tags": "","","","",""
+]
+[
+"name": "",
+"publisher": "",
+"price": ,
+"rating": ,
+"tags": "","","","",""
+]
+[
+"name": "",
+"publisher": "",
+"price": ,
+"rating": ,
+"tags": "","","","",""
+]
+[
+"name": "",
+"publisher": "",
+"price": ,
+"rating": ,
+"tags": "","","","",""
+]
