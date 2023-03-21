@@ -21,6 +21,11 @@ class Game {
     this.tags = tags;
   }
   
+  Game(String name) {
+    this.name = name;
+    lowerName = name.toLowerCase();
+  }
+  
   
   // DON'T GO ANY FURTHER
   // POINT OF NO RETURN

@@ -1,39 +1,6 @@
 //♪ I will refactor this later ♪
 
-String search = "Tema";
-ArrayList<Game> games = new ArrayList<Game>();
-
-void setup() {
-  //Stress test, 1M searches på 400-600ms
-  for(int i = 0; i < 1000000; i++){
-    String gameName = "";
-    for(int j = 0; j < random(100); j++){
-      int type = (int)random(0, 3);
-      switch(type){
-        case 0:
-          gameName += char((int)random(48, 58));
-          break;
-        case 1:
-          gameName += char((int)random(65, 91));
-          break;
-        case 2:
-          gameName += char((int)random(97, 123));
-          break;
-      }
-    }
-    games.add(new Game(gameName));
-  }
-
-  println("Your search: " + search);
-  search = search.toLowerCase();
-  int millis = millis();
-  searchGames();
-  millis = millis() - millis;
-  println("Searched " + games.size() + " games in " + millis + "ms.");
-}
-
-
-void searchGames() {
+void searchGames(String search) {
   for (int gameIndex = 0; gameIndex < games.size(); gameIndex++) {
     int gameScore = 0;
     for (int charIndex = 0; charIndex < search.length(); charIndex++) {
@@ -93,9 +60,11 @@ void searchGames() {
       }
       gameScore += 5 - distance;
     }
-    println("Game = " + games.get(gameIndex).name);
-    println(gameScore);
-    println();
+    // Save the calculated rating in the game instance
+    games.get(gameIndex).setSearchRating(gameScore);
+    //println("Game = " + games.get(gameIndex).name);
+    //println(gameScore);
+    //println();
   }
 }
 
