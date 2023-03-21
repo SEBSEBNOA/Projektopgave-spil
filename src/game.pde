@@ -7,6 +7,7 @@ class Game {
   float price;
   PImage img;
   int rating; // 0 til 10
+  int searchRating = 0;
   String[] tags;
   
   Game(String name, String publisher, String imgUrl, float price, int rating, String[] tags) {
@@ -21,7 +22,8 @@ class Game {
   }
   
   
-  
+  // DON'T GO ANY FURTHER
+  // POINT OF NO RETURN
   String getName() {
     return name;
   }
@@ -50,6 +52,10 @@ class Game {
     return rating;
   }
   
+  int getSearchRating() {
+    return searchRating;
+  }
+  
   String[] getTags() {
     return tags;
   }
@@ -75,6 +81,10 @@ class Game {
   
   void setRating(int rating) {
     this.rating = rating;
+  }
+  
+  void setSearchRating(int searchRating) {
+    this.searchRating = searchRating;
   }
   
   void setTags(String[] tags) {
