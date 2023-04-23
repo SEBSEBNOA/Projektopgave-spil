@@ -1,0 +1,14 @@
+Shooter
+Multiplayer
+FPS
+Action
+War
+FirstPerson
+ThirdPerson
+PvP
+Futuristic
+Physics
+Singleplayer
+Adventure
+Atmospheric
+Realistic
