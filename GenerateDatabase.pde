@@ -1,9 +1,9 @@
 import http.requests.*;
-JSONObject games;
-int checkIndex = 0;
+JSONArray games;
+int checkIndex = 40;
 int game = 0;
 JSONArray apps;
-
+JSONArray values;
 StringList gameNames;
 StringList gameBannerURLs;
 StringList detailedDescriptions;
@@ -16,7 +16,8 @@ StringList publishersStrings;
 void setup() {
   JSONObject jsonData = loadJSONObject("raw_data.json");
   apps = jsonData.getJSONObject("applist").getJSONArray("apps");
-  games = new JSONObject();
+  values = new JSONArray();
+  games = new JSONArray();
   gameNames = new StringList();
   gameBannerURLs = new StringList();
   detailedDescriptions = new StringList();
@@ -31,12 +32,10 @@ void draw() {
   GetDataFromFile(id, checkIndex);
   checkIndex++;
   print("...");
-  if (checkIndex == apps.length){
+  if (game == 550){
     save();
   }
-
-
-  //delay(1500);
+  delay(1500);
 }
 
 void GetDataFromFile(int id, int index) {
@@ -67,29 +66,28 @@ void GetDataFromFile(int id, int index) {
     }
    
       
-      JSONArray values = new JSONArray();
-      JSONObject gameData = new JSONObject();
+      
+      if(type.equals("game")){
       gameNames.append(gameName);
       gameBannerURLs.append(gameBannerURL);
-      detailedDescriptions.append(detailedDescription);
+      detailedDescriptions.append(detailedDescription); 
       shortDescriptions.append(shortDescription);
       requiredAges.append(requiredAge);
       metaCriticScores.append(metaCriticScore);
       publishersStrings.append(publishersString);
-
-      games.setJSONArray("games", values);
-
-      values.setJSONObject(game, gameData);
+      
+      println();
+      game++;
+      println("name: " + gameName + " | id: " + id + " | index: " + index + "| type:" + type + "| number:" + game);
+      }
+     
      
       
-         games = new JSONObject();
-        games.setJSONArray("Games", values);
-        saveJSONObject(games, "data/data.json");
+        
       
 
-      println();
-      println("name: " + gameName + " | id: " + id + " | index: " + index + "| type:" + type);
-     game++;
+      
+      
       
   }
   catch(Exception e) {
@@ -97,6 +95,25 @@ void GetDataFromFile(int id, int index) {
 }
 
 void save(){
-  for(int i = 0; i < game; i++){
+  
     
+  for(int i = 0; i < gameNames.size(); i++){
+     
+    JSONObject gameData = new JSONObject();
+    
+    gameData.setInt("id", i);
+    gameData.setString("gameName",gameNames.get(i));
+    gameData.setString("gameBannerURL",gameBannerURLs.get(i)); 
+    gameData.setString("detailedDescription",detailedDescriptions.get(i)); 
+    gameData.setString("shortDescription",shortDescriptions.get(i)); 
+    gameData.setInt("requiredAge", requiredAges.get(i));
+    gameData.setInt("metaCriticScores", metaCriticScores.get(i));
+    gameData.setString("publishersString",publishersStrings.get(i)); 
+    
+    values.setJSONObject(i, gameData);
+    
+  }
+   
+    saveJSONArray(values, "data/data.json");
+    exit();
 }
