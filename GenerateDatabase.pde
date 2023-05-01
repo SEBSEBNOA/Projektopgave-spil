@@ -1,14 +1,29 @@
 import http.requests.*;
-
+JSONObject games;
 int checkIndex = 0;
+int game = 0;
 JSONArray apps;
+
+StringList gameNames;
+StringList gameBannerURLs;
+StringList detailedDescriptions;
+StringList shortDescriptions;
+IntList requiredAges;
+IntList metaCriticScores;
+StringList publishersStrings;
+
+
 void setup() {
   JSONObject jsonData = loadJSONObject("raw_data.json");
   apps = jsonData.getJSONObject("applist").getJSONArray("apps");
-  
-  for(int i = 0; i < 0; i++){
-    thread("Thread");
-  }
+  games = new JSONObject();
+  gameNames = new StringList();
+  gameBannerURLs = new StringList();
+  detailedDescriptions = new StringList();
+  shortDescriptions = new StringList();
+  requiredAges = new IntList();
+  metaCriticScores = new IntList();
+  publishersStrings = new StringList();
 }
 
 void draw() {
@@ -16,16 +31,12 @@ void draw() {
   GetDataFromFile(id, checkIndex);
   checkIndex++;
   print("...");
-}
-
-void Thread(){
-  while(true){
-    int index = checkIndex;
-    checkIndex++;
-    int id = ((JSONObject)apps.get(index)).getInt("appid");
-    GetDataFromFile(id, index);
-    println("done index: " + index);
+  if (checkIndex == apps.length){
+    save();
   }
+
+
+  //delay(1500);
 }
 
 void GetDataFromFile(int id, int index) {
@@ -37,7 +48,6 @@ void GetDataFromFile(int id, int index) {
     JSONObject json = JSONObject.parse(data);
 
     JSONObject jsonInsideID = json.getJSONObject(id + "");
-    boolean success = jsonInsideID.getBoolean("success");
     JSONObject jsonData = jsonInsideID.getJSONObject("data");
     String type = jsonData.getString("type");
     String gameName = jsonData.getString("name");
@@ -55,10 +65,38 @@ void GetDataFromFile(int id, int index) {
       if (i + 1 < publishers.size())
         publishersString += " & ";
     }
-    
-    println();
-    println("name: " + gameName + " | id: " + id + " | index: " + index);
+   
+      
+      JSONArray values = new JSONArray();
+      JSONObject gameData = new JSONObject();
+      gameNames.append(gameName);
+      gameBannerURLs.append(gameBannerURL);
+      detailedDescriptions.append(detailedDescription);
+      shortDescriptions.append(shortDescription);
+      requiredAges.append(requiredAge);
+      metaCriticScores.append(metaCriticScore);
+      publishersStrings.append(publishersString);
+
+      games.setJSONArray("games", values);
+
+      values.setJSONObject(game, gameData);
+     
+      
+         games = new JSONObject();
+        games.setJSONArray("Games", values);
+        saveJSONObject(games, "data/data.json");
+      
+
+      println();
+      println("name: " + gameName + " | id: " + id + " | index: " + index + "| type:" + type);
+     game++;
+      
   }
   catch(Exception e) {
   }
+}
+
+void save(){
+  for(int i = 0; i < game; i++){
+    
 }
