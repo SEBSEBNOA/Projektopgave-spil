@@ -3,10 +3,27 @@ JSONObject games;
 int checkIndex = 0;
 int game = 0;
 JSONArray apps;
+
+StringList gameNames;
+StringList gameBannerURLs;
+StringList detailedDescriptions;
+StringList shortDescriptions;
+IntList requiredAges;
+IntList metaCriticScores;
+StringList publishersStrings;
+
+
 void setup() {
   JSONObject jsonData = loadJSONObject("raw_data.json");
   apps = jsonData.getJSONObject("applist").getJSONArray("apps");
   games = new JSONObject();
+  gameNames = new StringList();
+  gameBannerURLs = new StringList();
+  detailedDescriptions = new StringList();
+  shortDescriptions = new StringList();
+  requiredAges = new IntList();
+  metaCriticScores = new IntList();
+  publishersStrings = new StringList();
 }
 
 void draw() {
@@ -14,6 +31,10 @@ void draw() {
   GetDataFromFile(id, checkIndex);
   checkIndex++;
   print("...");
+  if (checkIndex == apps.length){
+    save();
+  }
+
 
   //delay(1500);
 }
@@ -45,19 +66,16 @@ void GetDataFromFile(int id, int index) {
         publishersString += " & ";
     }
    
-    
-      if (type == "game"){
+      
       JSONArray values = new JSONArray();
       JSONObject gameData = new JSONObject();
-      gameData.setInt("id", game);
-      gameData.setString("gameName", gameName);
-      gameData.setString("gameBannerURL", gameBannerURL);
-      gameData.setString("detailedDescription", detailedDescription);
-      gameData.setString("shortDescription", shortDescription);
-      gameData.setInt("requiredAge", requiredAge);
-      gameData.setInt("metaCriticScore", metaCriticScore);
-      gameData.setString("publishersString", publishersString);
-      gameData.setString("type", type);
+      gameNames.append(gameName);
+      gameBannerURLs.append(gameBannerURL);
+      detailedDescriptions.append(detailedDescription);
+      shortDescriptions.append(shortDescription);
+      requiredAges.append(requiredAge);
+      metaCriticScores.append(metaCriticScore);
+      publishersStrings.append(publishersString);
 
       games.setJSONArray("games", values);
 
@@ -70,10 +88,15 @@ void GetDataFromFile(int id, int index) {
       
 
       println();
-      println("name: " + gameName + " | id: " + id + " | index: " + index);
+      println("name: " + gameName + " | id: " + id + " | index: " + index + "| type:" + type);
      game++;
-      }
+      
   }
   catch(Exception e) {
   }
+}
+
+void save(){
+  for(int i = 0; i < game; i++){
+    
 }
