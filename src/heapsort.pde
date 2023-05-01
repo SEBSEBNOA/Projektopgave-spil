@@ -1,3 +1,5 @@
+// CONTROLLER
+
 // Swaps to elements in an array
 void swap(ArrayList<Game> games, int i, int j) {
   Game temp = games.get(i);

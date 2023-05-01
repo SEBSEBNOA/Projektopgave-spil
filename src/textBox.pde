@@ -1,3 +1,5 @@
+// VIEW
+
 class TextBox{
   private int x, y, boxWidth, boxHeight = 40;
   private int textLimit = 20;

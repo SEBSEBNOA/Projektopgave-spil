@@ -6,8 +6,10 @@ void setup() {
   fullScreen();
   inputBox = new TextBox(width / 2, height / 4, width / 2, height / 10);
   
+  // MODEL
+  // Loops through JSON data, and puts the data into Game class
   JSONArray json = loadJSONArray("../data/data.json");
-
+  
   for (int i = 0; i < json.size(); i++) {
     JSONObject jsonData = json.getJSONObject(i);
     String name = jsonData.getString("gameName");
@@ -21,11 +23,8 @@ void setup() {
 }
 
 void draw() {
+  // VIEW
   inputBox.draw();
-  
-  fill(255);
-  textSize(64);
-  textAlign(CENTER, CENTER);
   
   // Shows top 10 games, if you have searched for something
   if (searched) {
@@ -39,6 +38,7 @@ void draw() {
 }
 
 void keyPressed() {
+  // CONTROLLER
   inputBox.getUserInput();
   
   if (keyCode == ENTER) {

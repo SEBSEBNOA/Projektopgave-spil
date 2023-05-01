@@ -1,3 +1,5 @@
+// MODEL
+
 class Game {
   String name;
   String lowerName; // name in lower case - used for search algorithm
