@@ -1,47 +1,51 @@
-String[] tags;
 ArrayList<Game> games = new ArrayList<Game>();
-String search;
+TextBox inputBox;
+boolean searched = false;
 
 void setup() {
-  //Stress test, 1M searches på 400-600ms
-  for(int i = 0; i < 1000000; i++){
-    String gameName = "";
-    for(int j = 0; j < random(100); j++){
-      int type = (int)random(0, 3);
-      switch(type){
-        case 0:
-          gameName += char((int)random(48, 58));
-          break;
-        case 1:
-          gameName += char((int)random(65, 91));
-          break;
-        case 2:
-          gameName += char((int)random(97, 123));
-          break;
-      }
-    }
-    games.add(new Game(gameName));
-  }
-
-  // get search ratings
-  search = "tema";
-  println("Your search: " + search);
-  search = search.toLowerCase();
-  int millis = millis();
-  searchGames(search);
-  millis = millis() - millis;
-  println("Searched " + games.size() + " games in " + millis + "ms.");
+  fullScreen();
+  inputBox = new TextBox(width / 2, height / 4, width / 2, height / 10);
   
-  // Sort the list
-  millis = millis();
-  heapsort(games);
-  println("Sorted " + (millis() - millis) + "ms.");
+  // MODEL
+  // Loops through JSON data, and puts the data into Game class
+  JSONArray json = loadJSONArray("../data/data.json");
   
-  // Print top 10
-  for (int i = games.size() - 1; i > games.size() - 11; i--) {
-    println(games.get(i).getName());
+  for (int i = 0; i < json.size(); i++) {
+    JSONObject jsonData = json.getJSONObject(i);
+    String name = jsonData.getString("gameName");
+    String publisher = jsonData.getString("publishersString");
+    String URL = jsonData.getString("gameBannerURL");
+    int rating = jsonData.getInt("metaCriticScores");
+    
+    Game game = new Game(name, publisher, URL, rating);
+    games.add(game);
   }
 }
 
 void draw() {
+  // VIEW
+  inputBox.draw();
+  
+  // Shows top 10 games, if you have searched for something
+  if (searched) {
+    int j = 0;
+    for (int i = games.size() - 1; i > games.size() - 11; i--) {
+      Game game = games.get(i);
+      text(game.getName(), width / 2, height / 2.8 + 60 * j);
+      j++;
+    }
+  }
+}
+
+void keyPressed() {
+  // CONTROLLER
+  inputBox.getUserInput();
+  
+  if (keyCode == ENTER) {
+    searched = true;
+    String search = inputBox.text;
+    search = search.toLowerCase();
+    searchGames(search);
+    heapsort(games);
+  }
 }

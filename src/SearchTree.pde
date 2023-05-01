@@ -1,4 +1,4 @@
-//♪ I will refactor this later ♪
+// CONTROLLER
 
 void searchGames(String search) {
   for (int gameIndex = 0; gameIndex < games.size(); gameIndex++) {

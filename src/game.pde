@@ -1,3 +1,5 @@
+// MODEL
+
 class Game {
   String name;
   String lowerName; // name in lower case - used for search algorithm
@@ -10,15 +12,13 @@ class Game {
   int searchRating = 0;
   String[] tags;
   
-  Game(String name, String publisher, String imgUrl, float price, int rating, String[] tags) {
+  Game(String name, String publisher, String imgUrl, int rating) {
     this.name = name;
     lowerName = name.toLowerCase();
     this.publisher = publisher;
     lowerPublisher = publisher.toLowerCase();
     this.imgUrl = imgUrl;
-    this.price = price;
     this.rating = rating;
-    this.tags = tags;
   }
   
   Game(String name) {
@@ -49,20 +49,12 @@ class Game {
     return imgUrl;
   }
   
-  float getPrice() {
-    return price;
-  }
-  
   int getRating() {
     return rating;
   }
   
   int getSearchRating() {
     return searchRating;
-  }
-  
-  String[] getTags() {
-    return tags;
   }
   
   void setName(String name) {
@@ -80,19 +72,11 @@ class Game {
     img = loadImage(imgUrl);
   }
   
-  void setPrice(float price) {
-    this.price = price;
-  }
-  
   void setRating(int rating) {
     this.rating = rating;
   }
   
   void setSearchRating(int searchRating) {
     this.searchRating = searchRating;
-  }
-  
-  void setTags(String[] tags) {
-    this.tags = tags;
   }
 }
